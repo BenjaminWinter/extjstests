@@ -27,7 +27,7 @@ function sqlToJson ($sqlcommand)
 {
     $result = mysql_query($sqlcommand) or die(mysql_error());  
     $table = array();
-    while($row = mysql_fetch_array( $result,MYSQL_ASSOC)) {
+    while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $table[] = $row; 
     }  
     return json_encode($table);
