@@ -25,7 +25,6 @@ Ext.require([
 
 Ext.onReady(function() {
 
-    // sample static data for the store (now on top)
     var store = Ext.create('Ext.data.JsonStore', {
         proxy: {
             type: 'ajax',
@@ -39,14 +38,13 @@ Ext.onReady(function() {
     });
     store.load();
 
-
-    // create the Grid
-    var grid = Ext.create('Ext.grid.Panel', {
+    var mainPanel = Ext.create('Ext.grid.Panel', {
+        region: 'center',
         store: store,
         stateful: true,
-        collapsible: true,
         multiSelect: true,
         stateId: 'stateGrid',
+        flex: 2,
         columns: [{
             text     : 'First Name',
             sortable : false,
@@ -72,19 +70,32 @@ Ext.onReady(function() {
             sortable : true,
             dataIndex: 'birthday'
         }, {
-            menuDisabled: true,
-            sortable: false,
+            menuDisabled: false,
+            sortable: true,
             xtype: 'actioncolumn',
             width: 50                       //Komma: IE-Fehler
         }],
-        height: 350,
-        width: 700,
         title: 'Adresses',
-        renderTo: 'grid',
-        viewConfig: {
-            stripeRows: true,
-            enableTextSelection: true
-        }
     });
-});
 
+    var infoPanel = Ext.create('Ext.Panel', {
+        title: "Adressbook for you!",
+        layout: 'border',
+        renderTo: Ext.getBody(),
+        items: [{
+            xtype: 'panel',
+            region: 'east',
+            collapsible: true,
+            title: 'RockstarInfo',
+            flex: 1
+        }]
+    });
+
+    var mainView = Ext.create('Ext.Viewport',{
+        layout:'fit'
+    });
+
+    infoPanel.add(mainPanel);
+    mainView.add(infoPanel);
+
+});

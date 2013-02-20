@@ -5,7 +5,8 @@ Visualize as EXTJS Grid.
 
 Firebug / Chrome Developer tools
 */
-
+// Fr 10:00
+//Detail section : Show invisible cols (Edit?)
 
 //echo csvToJson('adress.csv');
 dbtest();												
