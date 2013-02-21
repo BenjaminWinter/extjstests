@@ -38,12 +38,40 @@ Ext.onReady(function() {
     });
     store.load();
 
-    var mainPanel = Ext.create('Ext.grid.Panel', {
-        region: 'center',
+   var grid2 = Ext.create('Ext.grid.Panel', {
+        region: 'east',
+        selType: 'rowmodel',
         store: store,
         stateful: true,
         multiSelect: true,
         stateId: 'stateGrid',
+        flex: 2,
+        columns: [{
+            text     : 'First Name',
+            sortable : false,
+            dataIndex: 'firstn'
+        }, {
+            text     : 'Last Name',
+            sortable : true,
+            dataIndex: 'lastn'
+        }],
+        title: 'Secretinfo',
+    });
+
+
+
+    var grid = Ext.create('Ext.grid.Panel', {
+        region: 'center',
+        selType: 'rowmodel',
+        store: store,
+        stateful: true,
+        multiSelect: true,
+        stateId: 'stateGrid',
+        listeners: {
+            cellclick: function handleRowSelect(grid, td, cellIndex,record,tr,rowIndex) {
+              
+            }
+        },
         flex: 2,
         columns: [{
             text     : 'First Name',
@@ -78,24 +106,43 @@ Ext.onReady(function() {
         title: 'Adresses',
     });
 
-    var infoPanel = Ext.create('Ext.Panel', {
+var filterPanel = Ext.create('Ext.panel.Panel', {
+    region: 'east',
+    bodyPadding: 5,  // Don't want content to crunch against the borders
+    title: 'Filters',
+    items: [{
+        name : 'current_project',
+        xtype: 'textfield',
+        fieldLabel: 'Current Project'
+    }, {
+        name : 'last_project',
+        xtype: 'textfield',
+        fieldLabel: 'Last Project'
+    }, {
+        name : 'hobby',
+        xtype: 'textfield',
+        fieldLabel: 'Hobby'
+    }]
+});
+
+filterPanel.query('textfield[name="current_project"]')[0].setValue('Java Editing');
+filterPanel.query('textfield[name="last_project"]')[0].setValue('Pascal fanaticism');
+filterPanel.query('textfield[name="hobby"]')[0].setValue('Sleeping');
+
+    var mainPanel = Ext.create('Ext.Panel', {
         title: "Adressbook for you!",
-        layout: 'border',
-        renderTo: Ext.getBody(),
-        items: [{
-            xtype: 'panel',
-            region: 'east',
-            collapsible: true,
-            title: 'RockstarInfo',
-            flex: 1
-        }]
+        layout: 'border'
+         
     });
+
 
     var mainView = Ext.create('Ext.Viewport',{
-        layout:'fit'
+        layout:'fit',
     });
 
-    infoPanel.add(mainPanel);
-    mainView.add(infoPanel);
+    mainPanel.add(grid);
+    mainPanel.add(filterPanel);
+    mainView.add(mainPanel);
+
 
 });
