@@ -1,13 +1,4 @@
 <?php 
-/* Load CSV file or database
-Print as JSON
-Visualize as EXTJS Grid.
-
-Firebug / Chrome Developer tools
-*/
-// Fr 10:00
-//Detail section : Show invisible cols (Edit?)
-
 //echo csvToJson('adress.csv');
 dbtest();												
 									
@@ -43,19 +34,19 @@ function csvToJson($file)
 	$table 		= array();
 	if (($keyList = fgetcsv($handle))!= FALSE) {
     	while ($currentLine = fgetcsv($handle)) {		
-			$table[] = engageCSVKeys($currentLine,$keyList);	
+			$table[] = engageCSVKeys($currentLine, $keyList);	
 		}
 	}
 	return json_encode ($table);
 }
 
 // Generates associative Key/Value Array needed for JSON encode
-function engageCSVKeys($nakedList,$fieldNames)
+function engageCSVKeys($nakedList, $fieldNames)
 {
 	$engagedList = array();
-	for ($i=0;$i<count($nakedList);$i++) {
-		$key=$fieldNames[$i];
-		$engagedList[$key]=$nakedList[$i];
+	for ($i = 0; $i < count($nakedList); $i++) {
+		$key = $fieldNames[$i];
+		$engagedList[$key] = $nakedList[$i];
 	}
 	return $engagedList;
 }
