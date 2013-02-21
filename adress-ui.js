@@ -12,13 +12,8 @@ Ext.require([
 // Specifying defaultValue as undefined will also save code. *As long as there will always be values in the data, or the app tolerates undefined field values*
 /* Ext.define('Company', {
     extend: 'Ext.data.Model',
-    fields: [
-       {name: 'company'},
-       {name: 'price',      type: 'float', convert: null,     defaultValue: undefined},
-       {name: 'change',     type: 'float', convert: null,     defaultValue: undefined},
-       {name: 'pctChange',  type: 'float', convert: null,     defaultValue: undefined},
-       {name: 'lastChange', type: 'date',  dateFormat: 'n/j h:ia', defaultValue: undefined}
-    ],
+    fields: ['firstn','lastn','street','city',{name:'zipcode', type: 'int'},
+                {name:'birthday', type:'date'},'band','favsong','favkey'],
     idProperty: 'company'
 });
 */
@@ -29,12 +24,13 @@ Ext.onReady(function() {
         proxy: {
             type: 'ajax',
             url : 'data.php',
+            storeId : 'MyStore',
             reader: {
                 type: 'json'
             }
         },
         fields: ['firstn','lastn','street','city',{name:'zipcode', type: 'int'},
-                {name:'birthday', type:'date'}]
+                {name:'birthday', type:'date'},'band','favsong','favkey']
     });
     store.load();
 
@@ -69,7 +65,12 @@ Ext.onReady(function() {
         stateId: 'stateGrid',
         listeners: {
             cellclick: function handleRowSelect(grid, td, cellIndex,record,tr,rowIndex) {
-              
+                var field1 = store.getAt(rowIndex).get('band');
+                var field2 = store.getAt(rowIndex).get('favsong');
+                var field3 = store.getAt(rowIndex).get('favkey');
+                filterPanel.query('textfield[name="band"]')[0].setValue(field1);
+                filterPanel.query('textfield[name="favsong"]')[0].setValue(field2);
+                filterPanel.query('textfield[name="favkey"]')[0].setValue(field3); 
             }
         },
         flex: 2,
@@ -111,23 +112,20 @@ var filterPanel = Ext.create('Ext.panel.Panel', {
     bodyPadding: 5,  // Don't want content to crunch against the borders
     title: 'Filters',
     items: [{
-        name : 'current_project',
+        name : 'band',
         xtype: 'textfield',
-        fieldLabel: 'Current Project'
+        fieldLabel: 'Band name'
     }, {
-        name : 'last_project',
+        name : 'favsong',
         xtype: 'textfield',
-        fieldLabel: 'Last Project'
+        fieldLabel: 'Favourite Song'
     }, {
-        name : 'hobby',
+        name : 'favkey',
         xtype: 'textfield',
-        fieldLabel: 'Hobby'
+        fieldLabel: 'Fav Key'
     }]
 });
 
-filterPanel.query('textfield[name="current_project"]')[0].setValue('Java Editing');
-filterPanel.query('textfield[name="last_project"]')[0].setValue('Pascal fanaticism');
-filterPanel.query('textfield[name="hobby"]')[0].setValue('Sleeping');
 
     var mainPanel = Ext.create('Ext.Panel', {
         title: "Adressbook for you!",
