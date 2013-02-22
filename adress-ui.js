@@ -14,7 +14,7 @@ Ext.define('Adresslist', {
 });
 
 Ext.onReady(function() {
-    // Load data using php/json
+// Load data using php/json
     var store = Ext.create('Ext.data.JsonStore', {
         proxy: {
             type:       'ajax',
@@ -28,7 +28,7 @@ Ext.onReady(function() {
     });
     store.load();
 
-    // Define main grid
+// Define main grid
     var grid = Ext.create('Ext.grid.Panel', {
         region:         'center',
         selType:        'rowmodel',
@@ -37,7 +37,7 @@ Ext.onReady(function() {
         multiSelect:    true,
         stateId:        'stateGrid',
         listeners: {
-            // On click: Display information in info panel using data from hidden fields
+// On click: Display information in info panel using data from hidden fields
             cellclick: function handleRowSelect(grid, td, cellIndex,record,tr,rowIndex) {
                 var field1 = store.getAt(rowIndex).get('band');
                 var field2 = store.getAt(rowIndex).get('favsong');
@@ -77,11 +77,13 @@ Ext.onReady(function() {
             sortable:     true,
             xtype:        'actioncolumn',
             width:        50
-        }], title: 'Adresses',
+        }],
+        title: 'Adresses',
     });
 
-    // Define infopanel with textfields
+// Define infopanel with textfields
     var infoPanel = Ext.create('Ext.panel.Panel', {
+        collapsible: true,
         region: 'east',
         bodyPadding: 5,  
         title: 'Additional Info',
@@ -100,18 +102,18 @@ Ext.onReady(function() {
         }]
     });
 
-    // Define mainPanel: Will contain grid + infoPanel
+// Define mainPanel: Will contain grid + infoPanel
     var mainPanel = Ext.create('Ext.Panel', {
         title:      "Musician's Adressbook",
         layout:     'border'
     });
 
-    // Mainview contains mainPanel - extends full Browser width through viewport usage
+// Mainview contains mainPanel - extends full Browser width through viewport usage
     var mainView = Ext.create('Ext.Viewport',{
         layout:     'fit',
     });
 
-    // Add site Elements to mainView viewport
+// Add site Elements to mainView viewport
     mainPanel.add(grid);
     mainPanel.add(infoPanel);
     mainView.add(mainPanel);
