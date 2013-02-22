@@ -19,7 +19,7 @@ Ext.onReady(function() {
         proxy: {
             type:       'ajax',
             model:      'Adresslist',
-            url:        'data.php',
+            url:        '../server/app/data.php',
             storeId:    'MyStore',
             reader: {
                 type:   'json'
