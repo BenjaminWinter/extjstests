@@ -1,4 +1,6 @@
 <?php 
+require_once 'settings.php';
+
 //echo csvToJson('adress.csv');
 dbtest();												
 									
@@ -7,8 +9,9 @@ dbtest();
    Then calls the Json converter function with SQL command. */
 function dbTest () 
 {
-	mysql_connect('localhost', 'guest', 'letsparty') or die(mysql_error());		
-    mysql_select_db('adress_book') or die(mysql_error());						
+    $settings = $GLOBALS['settings'];
+	mysql_connect($settings['db']['host'], $settings['db']['username'], $settings['db']['password']) or die(mysql_error());		
+    mysql_select_db($settings['db']['tablename']) or die(mysql_error());						
 	mysql_query('SET NAMES utf8');												
 	echo sqlToJson('SELECT * FROM adresses');
 }
