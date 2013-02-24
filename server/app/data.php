@@ -1,12 +1,27 @@
 <?php 
 require_once dirname(__FILE__).'/../../settings.php';
 //echo csvToJson('adress.csv');
-dbtest();												
-									
+$action = $_GET;
+
+if ($action['action'] == 'read') { 
+    read();
+}
+
+if ($action['action'] == 'create') {
+
+}
+
+if ($action['action'] == 'update') {
+
+}
+
+if ($action['action'] == 'write') {
+
+}
 
 /* Connects to MYSQL database and sets the UTF8 format. 
    Then calls the Json converter function with SQL command. */
-function dbTest () 
+function read () 
 {
     $settings = $GLOBALS['settings'];
 	mysql_connect($settings['db']['host'], $settings['db']['username'], $settings['db']['password']) or die(mysql_error());		
@@ -24,31 +39,6 @@ function sqlToJson ($sqlcommand)
     while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
         $table[] = $row; 
     }  
-    return json_encode($table);
-}
-
-/* Generates Keys from first line of the CSV input file.
-   Returns JSon encoded string with Key/Value pairs from CSV */
-function csvToJson($file) 
-{
-	$handle 	= fopen($file,r);
-	$keyList 	= array();
-	$table 		= array();
-	if (($keyList = fgetcsv($handle))!= FALSE) {
-    	while ($currentLine = fgetcsv($handle)) {		
-			$table[] = engageCSVKeys($currentLine, $keyList);	
-		}
-	}
-	return json_encode ($table);
-}
-
-// Generates associative Key/Value Array needed for JSON encode
-function engageCSVKeys($nakedList, $fieldNames)
-{
-	$engagedList = array();
-	for ($i = 0; $i < count($nakedList); $i++) {
-		$key = $fieldNames[$i];
-		$engagedList[$key] = $nakedList[$i];
-	}
-	return $engagedList;
+    $result = array ('success'=>true, 'data'=>$table);
+    return json_encode($result);
 }

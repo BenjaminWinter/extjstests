@@ -9,43 +9,43 @@ Ext.define('App.view.Viewport', {
     title: "Musician's Adressbook",
     layout: 'border',
     items: [{
-        xtype: 'grid',                      //Change coding style...
+        xtype: 'grid',       
         region: 'center',
-        selType:        'rowmodel',
-        store:          'Address',
-        stateful:       true,
-        multiSelect:    true,
-        stateId:        'stateGrid',
+        selType: 'rowmodel',
+        store: 'Address',
+        stateful: true,
+        multiSelect: true,
+        stateId: 'stateGrid',
         flex: 2,
         columns: [{
-            text:         'First Name',
-            sortable:     false,
-            dataIndex:    'firstn'
+            text: 'First Name',
+            sortable: false,
+            dataIndex: 'firstn'
         }, {
-            text:         'Last Name',
-            sortable:     true,
-            dataIndex:    'lastn'
+            text: 'Last Name',
+            sortable: true,
+            dataIndex: 'lastn'
         }, {
-            text:         'Street',
-            sortable:     true,
-            dataIndex:    'street'
+            text: 'Street',
+            sortable: true,
+            dataIndex: 'street'
         }, {
-            text:         'City',
-            sortable:     true,
-            dataIndex:    'city'
+            text: 'City',
+            sortable: true,
+            dataIndex: 'city'
         }, {
-            text:         'Zipcode',
-            sortable:     true,
-            dataIndex:    'zipcode'
+            text: 'Zipcode',
+            sortable: true,
+            dataIndex: 'zipcode'
         }, {
-            text:         'Birthday',
-            sortable:     true,
-            dataIndex:    'birthday'
+            text: 'Birthday',
+            sortable: true,
+            dataIndex:'birthday'
         }, {
             menuDisabled: false,
-            sortable:     true,
-            xtype:        'actioncolumn',
-            width:        50
+            sortable: true,
+            xtype: 'actioncolumn',
+            width: 50
         }],
         title: 'Adresses' 
     }, {
@@ -54,17 +54,21 @@ Ext.define('App.view.Viewport', {
         bodyPadding: 5,  
         title: 'Additional Info',
         items: [{
-            name:        'band',
-            xtype:       'textfield',
-            fieldLabel:  'Band name'
+            name: 'band',
+            xtype: 'textfield',
+            fieldLabel: 'Band name'
         }, {
-            name:        'favsong',
-            xtype:       'textfield',
-            fieldLabel:  'Favourite Song'
+            name: 'favsong',
+            xtype: 'textfield',
+            fieldLabel: 'Favourite Song'
         }, {
-            name:        'favkey',
-            xtype:       'textfield',
-            fieldLabel:  'Fav Key'
+            name: 'favkey',
+            xtype: 'textfield',
+            fieldLabel: 'Fav Key'
+        }, {
+            name: 'update',
+            xtype: 'button',
+            text: 'Update'    
         }]
     }]
 });
