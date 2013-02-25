@@ -5,6 +5,6 @@ $GLOBALS['settings'] = array(
         'host' => '',
         'username' => '',
         'password' => '',
-        'tablename' => '',
+        'dbname' => '',
     ),
 );
